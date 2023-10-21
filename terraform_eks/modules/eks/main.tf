@@ -1,20 +1,9 @@
+
+# EKS Master IAM Role and Policies
 resource "aws_iam_role" "master" {
   name = "eks-master"
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
+  assume_role_policy = file("${path.module}/master_assume_role_policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
@@ -32,47 +21,18 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
   role       = aws_iam_role.master.name
 }
 
+
+
+# EKS Worker IAM Role and Policies
 resource "aws_iam_role" "worker" {
   name = "eks-worker"
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
+  assume_role_policy = file("${path.module}/worker_assume_role_policy.json")
 }
 
 resource "aws_iam_policy" "autoscaler" {
   name   = "eks-autoscaler-policy"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "autoscaling:DescribeAutoScalingGroups",
-        "autoscaling:DescribeAutoScalingInstances",
-        "autoscaling:DescribeTags",
-        "autoscaling:DescribeLaunchConfigurations",
-        "autoscaling:SetDesiredCapacity",
-        "autoscaling:TerminateInstanceInAutoScalingGroup",
-        "ec2:DescribeLaunchTemplateVersions"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
+  policy = file("${path.module}/autoscaler_policy.json")
 
 }
 

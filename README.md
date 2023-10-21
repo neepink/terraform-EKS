@@ -1,7 +1,7 @@
 
 # Terraform Modularized EKS Setup
 
-This repository contains a modularized Terraform configuration for setting up an AWS Elastic Kubernetes Service. The infrastructure includes Elastic Kubernetes components(IAM roles, policies, nodegroup), networking components, compute instances, security groups.
+This repository contains a modularized Terraform configuration for setting up an AWS Elastic Kubernetes Service. The infrastructure includes Elastic Kubernetes components (IAM roles, policies, nodegroup), networking components, compute instances, and security groups.
 
 ## Modules Overview:
 
@@ -18,40 +18,35 @@ This repository contains a modularized Terraform configuration for setting up an
 
 ## Usage:
 
-1. **Initialization**:
-   Navigate to the `terraform` directory and run:
+1. **Initialization**: Navigate to the `terraform` directory and run:
    ```
    terraform init
    ```
-2. **Validate**:
-   Validate the syntax of terraform files:
-   ```
-   terraform validate
-   ```
-3. **Plan**:
-   Review the changes that Terraform will perform:
+
+2. **Planning**: To see which changes will be applied:
    ```
    terraform plan
    ```
 
-4. **Apply**:
-   Apply the desired changes:
+3. **Applying**: To apply the changes:
    ```
    terraform apply
    ```
 
-5. **Destroy** (optional):
-   If you want to tear down the infrastructure:
+4. **Destroying**: If you want to destroy all resources created by this configuration:
    ```
    terraform destroy
    ```
 
-## Note:
+## Variables:
 
-Ensure you modify the variables as needed, either by updating the `variables.tf` files within modules or by providing values during the `terraform apply` step.
+Please refer to `variables.tf` in the root and inside the modules for configurable variables. Each variable has a description and default value provided.
 
-## Contributing:
+## Security Note:
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Please review the security configurations, especially the security group rules and IAM policies, before deploying this setup in a production environment. Ensure that the configurations adhere to your organization's security standards.
 
+## Version Information:
+
+This configuration has been tested with Terraform version XX.XX (replace with your version) and AWS provider version YY.YY (replace with your version).
 

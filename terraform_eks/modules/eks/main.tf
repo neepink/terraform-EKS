@@ -1,4 +1,3 @@
-
 # EKS Master IAM Role and Policies
 resource "aws_iam_role" "master" {
   name = "eks-master"
@@ -20,8 +19,6 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.master.name
 }
-
-
 
 # EKS Worker IAM Role and Policies
 resource "aws_iam_role" "worker" {
@@ -84,7 +81,7 @@ resource "aws_eks_cluster" "eks" {
   vpc_config {
     subnet_ids = [var.subnet_ids[0],var.subnet_ids[1]]
   }
-  
+
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.AmazonEKSServicePolicy,
@@ -106,10 +103,10 @@ resource "aws_eks_node_group" "backend" {
   remote_access {
     ec2_ssh_key = var.ssh-key
     source_security_group_ids = [var.sg_ids]
-  } 
-  
+  }
+
   labels =  tomap({env = "ng"})
-  
+
   scaling_config {
     desired_size = 2
     max_size     = 3

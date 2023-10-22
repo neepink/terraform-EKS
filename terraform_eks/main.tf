@@ -2,6 +2,7 @@
 module "sgs" {
   source = "./modules/sg_eks"
   vpc_id = module.network.vpc_id
+  allowed_ssh_cidr_block = var.allowed_ssh_cidr_blocks
 }
 
 module "eks" {
@@ -27,6 +28,7 @@ module "network" {
 module "security" {
   source        = "./modules/security"
   vpc_id        = module.network.vpc_id
+  allowed_ssh_cidr_block = var.allowed_ssh_cidr_blocks
 }
 
 # Compute Module
@@ -37,7 +39,6 @@ module "compute" {
   aws_security_group_demo_vpc_sg_id = module.security.demo_sg_id
   demo_subnet1_id                   = module.network.subnet1_id
   demo_subnet2_id                   = module.network.subnet2_id
-
 }
 
 

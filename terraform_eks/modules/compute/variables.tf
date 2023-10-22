@@ -8,7 +8,6 @@ variable "instance-type" {
     type        = string
 }
     
-
 variable "vpc-cidr" {
     default = "10.10.0.0/16"  
 }

@@ -16,11 +16,8 @@ variable "subnet1_az" {
 variable "subnet2-cidr" {
     description = "CIDR block for subnet2"
     type        = string
-    
-  
 }
 variable "subnet2_az" {
     description = "Availability zone for subnet2"
     type        = string
-      
 }
